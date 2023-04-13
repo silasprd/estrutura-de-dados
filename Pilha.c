@@ -2,24 +2,24 @@
 #include <stdlib.h>
 
 typedef struct {
-    int top;
-    int *data;
+    int size;
+    int *top;
 } Stack;
 
 //criar pilha
 void createStack(Stack *stack) {
-    stack->top = 0;
-    stack->data = (int *)malloc(sizeof(int));
+    stack->size = 0;
+    stack->top = (int *)malloc(sizeof(int));
 };
 
 //verificar se a pilha está vazia
 int isEmpty(Stack *stack){
-    return stack->top == 0;  
+    return stack->size == 0;  
 };
 
 //adicionar elemento na pilha
 void push(Stack *stack, int value){
-    stack->data[++stack->top] = value;
+    stack->top[++stack->size] = value;
 };
 
 //remover elemento na pilha
@@ -28,7 +28,7 @@ void pop(Stack *stack){
         printf("Pilha vazia, não é possível remover!!!");
         return;
     }
-    stack->data[--stack->top];
+    stack->top[--stack->size];
 };
 
 //retornar elemento no topo da pilha
@@ -37,12 +37,12 @@ int peek(Stack *stack){
         printf("Pilha vazia, nenhum elemento no topo!!!");
         return -1;
     }
-    return stack->data[stack->top];  
+    return stack->top[stack->size];  
 };
 
 //retornar o tamanho da pilha
 int size(Stack *stack) {
-    return stack->top;
+    return stack->size;
 };
 
 //imprimir a pilha
@@ -52,8 +52,8 @@ void print(Stack *stack){
         printf("Pilha vazia!!!");
         return;
     }
-    for(int i = stack->top; i > 0; i--){
-        printf("%d\n", stack->data[i]);
+    for(int i = stack->size; i > 0; i--){
+        printf("%d\n", stack->top[i]);
     }
 };
 
