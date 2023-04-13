@@ -47,9 +47,8 @@ int size(Stack *stack) {
 
 //imprimir a pilha
 void print(Stack *stack){
-    printf("\nStack:\n");
     if(isEmpty(stack)){
-        printf("Pilha vazia!!!");
+        printf("Pilha vazia!!! \n");
         return;
     }
     for(int i = stack->size; i > 0; i--){
@@ -59,19 +58,22 @@ void print(Stack *stack){
 
 void main()
 {
-    printf("Hello World");
+    printf("Estrutura de dados - PILHA \n");
     Stack stack;
     createStack(&stack);
     push(&stack, 8);
     push(&stack, 10);
     push(&stack, 4);
     push(&stack, 7);
-    pop(&stack);
-    pop(&stack);
+    printf("\nPilha:\n");
     print(&stack);
-    printf("\nStack top: \n");
+    pop(&stack);
+    pop(&stack);
+    printf("\nPilha após remoção: \n");
+    print(&stack);
+    printf("\nTopo da pilha: \n");
     printf("%d \n", peek(&stack));
-    printf("\nStack size: \n");
+    printf("\nTamanho da pilha: \n");
     printf("%d", size(&stack));
     
 };
