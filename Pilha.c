@@ -1,28 +1,50 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-typedef struct node {
+typedef struct cel {
     int value;
-    struct node* next;
-} Node;
+    struct cel *next;
+} Celula;
     
 typedef struct {
-    Node* top;
-} Stack;
+    Celula *top;
+} Pilha;
     
-void createStack(Stack* st) {
-    st->top = NULL;
+void criaPilha(Pilha *p) {
+    p->top = NULL;
 }
 
-void push(Stack* st, int value){
-    Node* new = (Node*) malloc(sizeof(Node));
+void push(Pilha *p, int value){
+    Celula *new;
+    new = malloc (sizeof(Celula));
     new->value = value;
-    new->next = st->top;
-    st->top = new;
+    new->next = p->top;
+    p->top = new;
 }
 
-void print(Stack* st){
-    Node* current = st->top;
+void pop(Pilha *p){
+    if(p->top == NULL){
+        printf("Pilha vazia!!");
+        return;
+    }
+    
+    Celula *currentTop = p->top;
+    p->top = currentTop->next;
+    free(currentTop);
+}
+
+int peek(Pilha *p){
+    
+    if(p->top == NULL){
+        printf("Nenhum elemento no topo!!");
+        return -1;
+    }
+    
+    return p->top->value;
+}
+
+void print(Pilha *p){
+    Celula *current = p->top;
     while (current != NULL){
         printf("\n%d", current->value);
         current = current->next;
@@ -32,11 +54,20 @@ void print(Stack* st){
 
 void main()
 {
-    printf("Hello World");
-    Stack stack;
-    createStack(&stack);
-    push(&stack, 4);
-    push(&stack, 7);
-    push(&stack, 2);
-    print(&stack);
+    printf("Estrutura de dados - PILHA\n\n");
+    Pilha pilha;
+    criaPilha(&pilha);
+    push(&pilha, 4);
+    push(&pilha, 7);
+    push(&pilha, 2);
+    push(&pilha, 23);
+    push(&pilha, 10);
+    printf("Pilha antes da remoção:");
+    print(&pilha);
+    printf("Valor no topo da pilha: %d\n", peek(&pilha));
+    pop(&pilha);
+    pop(&pilha);
+    printf("\nPilha após remover 2 valores:");
+    print(&pilha);
+    printf("Valor no topo da pilha: %d", peek(&pilha));
 }
