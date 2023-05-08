@@ -2,77 +2,79 @@
 #include <stdlib.h>
 
 typedef struct celula {
-    int valor;
-    struct celula *proximo;
+    int value;
+    struct celula *next;
 } Celula;
 
 typedef struct fila {
-    Celula *inicio;
-    Celula *fim;
+    Celula *start;
+    Celula *end;
 } Fila;
 
-void inicializar_fila(Fila *fila) {
-    fila->inicio = NULL;
-    fila->fim = NULL;
+void criaFila(Fila *fila) {
+    fila->start = NULL;
+    fila->end = NULL;
 }
 
-void enfileirar(Fila *fila, int valor) {
-    Celula *nova_celula = (Celula*) malloc(sizeof(Celula));
-    nova_celula->valor = valor;
-    nova_celula->proximo = NULL;
+void enfileirar(Fila *fila, int value) {
+    Celula *new = (Celula*) malloc(sizeof(Celula));
+    new->value = value;
+    new->next = NULL;
     
-    if (fila->inicio == NULL) {
-        fila->inicio = nova_celula;
-        fila->fim = nova_celula;
+    if (fila->start == NULL) {
+        fila->start = new;
+        fila->end = new;
     } else {
-        fila->fim->proximo = nova_celula;
-        fila->fim = nova_celula;
+        fila->end->next = new;
+        fila->end = new;
     }
 }
 
 int desenfileirar(Fila *fila) {
-    if (fila->inicio == NULL) {
+    if (fila->start == NULL) {
         printf("A fila esta vazia.\n");
         return 0;
     } else {
-        Celula *celula_removida = fila->inicio;
-        int valor_removido = celula_removida->valor;
+        Celula *removed = fila->start;
+        int value = removed->value;
+
         
-        fila->inicio = celula_removida->proximo;
         
-        if (fila->inicio == NULL) {
-            fila->fim = NULL;
+        fila->start = removed->next;
+        
+        if (fila->start == NULL) {
+            fila->end = NULL;
         }
         
-        free(celula_removida);
-        return valor_removido;
+        free(removed);
+        return value;
     }
 }
 
-void exibir_fila(Fila *fila) {
-    Celula *celula_atual = fila->inicio;
-    
-    printf("Fila: ");
-    while (celula_atual != NULL) {
-        printf("%d ", celula_atual->valor);
-        celula_atual = celula_atual->proximo;
+void print(Fila *fila) {
+    Celula *current = fila->start;
+
+    while (current != NULL) {
+        printf("\n %d", current->value);
+        current = current->next;
     }
     printf("\n");
 }
 
 void main() {
-    Fila minha_fila;
-    inicializar_fila(&minha_fila);
+    Fila fila;
+    criaFila(&fila);
     
-    enfileirar(&minha_fila, 10);
-    enfileirar(&minha_fila, 20);
-    enfileirar(&minha_fila, 30);
+    enfileirar(&fila, 10);
+    enfileirar(&fila, 20);
+    enfileirar(&fila, 30);
     
-    exibir_fila(&minha_fila);
+    printf("Fila antes da remoção: ");
+    print(&fila);
     
-    int valor_removido = desenfileirar(&minha_fila);
-    printf("Valor removido: %d\n", valor_removido);
-    
-    exibir_fila(&minha_fila);
+    int value = desenfileirar(&fila);
+    printf("\nValor removido da fila: %d\n", value);
+    printf("Fila após remoção: ");
+    print(&fila);
     
 }

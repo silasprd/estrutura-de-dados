@@ -1,0 +1,9 @@
+Seleção
+
+Realiza um busca em todo o vetor comparando e encontrando o maior valor, ao encontrar o maior valor posiciona ele no ultimo elemento da lista, e assim por diante posicionando sempre na posição (n-1). Necessário 2 algoritmos, 1 para percorrer e o outro para ordenar na posição correta.
+
+
+Inserção - SHELL
+
+é ruim quando está ordenado de trás para frente, mas é bom quando está ordenado.
+GAP = 4 - saltos utilizado para comparar os elementos da lista, pega o primeiro e compara com o elemento 4 posições a frente. Em seguida utiliza um GAP menor(ex.: 2), pega a nova lista ordenada com GAP e realiza a comparação com GAP = 2. E então diminui o GAP novamente para 1 e realiza a comparação novamente.
