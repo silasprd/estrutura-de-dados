@@ -1,78 +1,118 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <time.h>
+#include <ncurses.h>
 
 typedef struct celula {
-    int valor;
-    struct celula *proximo;
+    int value;
+    struct celula *next;
 } Celula;
 
 typedef struct fila {
-    Celula *inicio;
-    Celula *fim;
+    Celula *first;
+    Celula *last;
 } Fila;
 
-void inicializar_fila(Fila *fila) {
-    fila->inicio = NULL;
-    fila->fim = NULL;
+void criaFila(Fila *fila) {
+    fila->first = NULL;
+    fila->last = NULL;
 }
 
-void enfileirar(Fila *fila, int valor) {
-    Celula *nova_celula = (Celula*) malloc(sizeof(Celula));
-    nova_celula->valor = valor;
-    nova_celula->proximo = NULL;
+void enfileirar(Fila *fila) {
+    Celula *new = (Celula*) malloc(sizeof(Celula));
+    int random = 10 + rand() % (100 - 10 + 1);
+    printw("\n%d", random);
+    new->value = random;
+    new->next = NULL;
     
-    if (fila->inicio == NULL) {
-        fila->inicio = nova_celula;
-        fila->fim = nova_celula;
+    if (fila->first == NULL) {
+        fila->first = new;
+        fila->last = new;
     } else {
-        fila->fim->proximo = nova_celula;
-        fila->fim = nova_celula;
+        fila->last->next = new;
+        fila->last = new;
     }
 }
 
 int desenfileirar(Fila *fila) {
-    if (fila->inicio == NULL) {
-        printf("A fila esta vazia.\n");
+    if (fila->first == NULL) {
+        printw("A fila esta vazia.\n");
         return 0;
     } else {
-        Celula *celula_removida = fila->inicio;
-        int valor_removido = celula_removida->valor;
+        Celula *temp = fila->first;
+        int value = temp->value;
         
-        fila->inicio = celula_removida->proximo;
+        fila->first = temp->next;
         
-        if (fila->inicio == NULL) {
-            fila->fim = NULL;
+        if (fila->first == NULL) {
+            fila->last = NULL;
         }
         
-        free(celula_removida);
-        return valor_removido;
+        free(temp);
+        return value;
     }
 }
 
-void exibir_fila(Fila *fila) {
-    Celula *celula_atual = fila->inicio;
-    
-    printf("Fila: ");
-    while (celula_atual != NULL) {
-        printf("%d ", celula_atual->valor);
-        celula_atual = celula_atual->proximo;
+void print(Fila *fila) {
+    Celula *current = fila->first;
+
+    while (current != NULL) {
+        printw("\n%d", current->value);
+        current = current->next;
     }
-    printf("\n");
+}
+
+void exibirMenu() {
+    printw("\n");
+    printw("\n1 - Gerar senha");
+    printw("\n2 - Chamar cliente");
+    printw("\n3 - Mostrar fila de atendimento");
+    printw("\nOu pressione 'x' para sair");
 }
 
 void main() {
-    Fila minha_fila;
-    inicializar_fila(&minha_fila);
-    
-    enfileirar(&minha_fila, 10);
-    enfileirar(&minha_fila, 20);
-    enfileirar(&minha_fila, 30);
-    
-    exibir_fila(&minha_fila);
-    
-    int valor_removido = desenfileirar(&minha_fila);
-    printf("Valor removido: %d\n", valor_removido);
-    
-    exibir_fila(&minha_fila);
+    Fila fila;
+    criaFila(&fila);
+    srand(time(NULL));
+    initscr();
+    cbreak();
+    //noecho();
+    keypad(stdscr, TRUE);
+
+    exibirMenu();
+
+    int key = getch();
+
+
+    while (key != 'x') {
+        switch(key){
+            case '1': {
+                clear();
+                printw("Senha gerada: ");
+                enfileirar(&fila);
+                exibirMenu();
+                break;
+            }
+            case '2': {
+                clear();
+                printw("Cliente chamado:\n%d", desenfileirar(&fila));
+                exibirMenu();
+                break;
+            }
+            case '3': {
+                clear();
+                printw("Fila de atendimento:");
+                print(&fila);
+                exibirMenu();
+                break;
+            }
+            default:
+                printw("Opção inválida");
+                exibirMenu();
+                break;
+        }
+        key = getch();
+    }   
+    endwin();
     
 }
