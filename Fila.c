@@ -68,6 +68,8 @@ void main() {
     enfileirar(&fila, 10);
     enfileirar(&fila, 20);
     enfileirar(&fila, 30);
+    enfileirar(&fila, 40);
+    enfileirar(&fila, 50);
     
     printf("Fila antes da remoção: ");
     print(&fila);
