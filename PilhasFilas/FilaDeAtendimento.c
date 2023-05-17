@@ -8,44 +8,34 @@ typedef struct celula {
     struct celula *next;
 } Celula;
 
-typedef struct fila {
-    Celula *first;
-    Celula *last;
-} Fila;
-
-void criaFila(Fila *fila){
-    fila->first = NULL;
-    fila->last = NULL;
-}
-
-void enfileirar(Fila *fila){
+void enfileirar(Celula **start, Celula **end){
     Celula *new = malloc(sizeof(Celula));
     int random = 10 + rand() % (100 - 10 + 1);
     printw("\nSenha gerada: %d", random);
     new->value = random;
     new->next = NULL;
     
-    if (fila->first == NULL) {
-        fila->first = new;
-        fila->last = new;
+    if (*start == NULL) {
+        *start = new;
+        *end = new;
     } else {
-        fila->last->next = new;
-        fila->last = new;
+        (*end)->next = new;
+        *end = new;
     }
 }
 
-int desenfileirar(Fila *fila) {
-    if (fila->first == NULL) {
+int desenfileirar(Celula **start, Celula **end) {
+    if (*start == NULL) {
         printw("\nA fila esta vazia.");
         return 0;
     } else {
-        Celula *temp = fila->first;
+        Celula *temp = *start;
         int value = temp->value;
         
-        fila->first = temp->next;
+        *start = temp->next;
         
-        if (fila->first == NULL) {
-            fila->last = NULL;
+        if (*start == NULL) {
+            *end = NULL;
         }
         
         free(temp);
@@ -54,8 +44,8 @@ int desenfileirar(Fila *fila) {
     }
 }
 
-void print(Fila *fila) {
-    Celula *current = fila->first;
+void print(Celula **start) {
+    Celula *current = *start;
     printw("\nFila de atendimento:");
     while (current != NULL) {
         printw("\n%d", current->value);
@@ -71,8 +61,8 @@ void exibirMenu() {
 }
 
 void main(){
-    Fila fila;
-    criaFila(&fila);
+    Celula *start = NULL;
+    Celula *end = NULL;
     srand(time(NULL));
     initscr();
     cbreak();
@@ -89,9 +79,9 @@ void main(){
             case '1': {
                 clear();
                 printw("\nEstrutura de dados - Fila de atendimento\n");
-                enfileirar(&fila);
+                enfileirar(&start, &end);
                 printw("\n");
-                print(&fila);
+                print(&start);
                 printw("\n");
                 exibirMenu();
                 break;
@@ -99,9 +89,9 @@ void main(){
             case '2': {
                 clear();
                 printw("\nEstrutura de dados - Fila de atendimento\n");
-                desenfileirar(&fila);
+                desenfileirar(&start, &end);
                 printw("\n");
-                print(&fila);
+                print(&start);
                 printw("\n");
                 exibirMenu();
                 break;
@@ -109,7 +99,7 @@ void main(){
             case '3': {
                 clear();
                 printw("\nEstrutura de dados - Fila de atendimento\n");
-                print(&fila);
+                print(&start);
                 printw("\n");
                 exibirMenu();
                 break;

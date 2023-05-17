@@ -10,7 +10,6 @@ typedef struct cel {
 
 void empilha(Celula *p, char link[]){
     Celula *new = malloc (sizeof(Celula));
-    //new->link = link;
     strcpy(new->link, link);
     new->next = p->next;
     p->next = new;
