@@ -1,0 +1,31 @@
+Seleção
+Realiza um busca em todo o vetor comparando e encontrando o maior valor, ao encontrar o maior valor posiciona ele no ultimo elemento da lista, e assim por diante posicionando sempre na posição (n-1). Necessário 2 algoritmos, 1 para percorrer e o outro para ordenar na posição correta.
+
+
+Inserção
+insere um por um de trás para frente sempre comparando se este número é menor q o primeiro, mesma coisa do Shell porém compara um por um sem GAP.
+
+
+Shell Sort
+é ruim quando está ordenado de trás para frente, mas é bom quando está ordenado.
+GAP = 4 - saltos utilizado para comparar os elementos da lista, pega o primeiro e compara com o elemento 4 posições a frente. Em seguida utiliza um GAP menor(ex.: 2), pega a nova lista ordenada com GAP e realiza a comparação com GAP = 2. E então diminui o GAP novamente para 1 e realiza a comparação novamente.
+
+
+Quick Sort
+Separa vetores em menores a esquerda e maiores a direita.
+criar 2 variaveis de contador com valor 0, uma usada para contar e outra para marcar o último maior valor encontrado. começa comparando o ultimo elemento com o indice 0.
+
+
+Merge Sort
+2 index (i, j)
+Acha o meio do vetor e divide em 2 vetores, depois pega o lado esquerdo e divide o vetor até restar 1 elemento, compara com a instância anterior(que tinha 2 elementos) e ordena esses 2 elementos e teremos um primeiro vetor ja ordenado com 2 posições, em seguida vai voltando as instâncias, comparando e ordenando.
+eu adiciono 1 ao contador que tiver o número menor.
+Se em uma instância tiver + de 1 valor, você continua separando este vetor da instância até restar 1 posição para cada lado. 
+A comparação só rola após termos 1 vetor ordenado.
+
+
+Selection Sort
+Insertion Sort
+Shell Sort
+Quick Sort
+Merge Sort
