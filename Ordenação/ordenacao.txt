@@ -7,3 +7,8 @@ Inserção - SHELL
 
 é ruim quando está ordenado de trás para frente, mas é bom quando está ordenado.
 GAP = 4 - saltos utilizado para comparar os elementos da lista, pega o primeiro e compara com o elemento 4 posições a frente. Em seguida utiliza um GAP menor(ex.: 2), pega a nova lista ordenada com GAP e realiza a comparação com GAP = 2. E então diminui o GAP novamente para 1 e realiza a comparação novamente.
+
+
+Ordenação por inserção: Nesse algoritmo, os elementos são percorridos um por um, começando do segundo elemento até o último. Em cada iteração, o elemento atual é comparado com os elementos anteriores e movido para a posição correta, deslocando os elementos maiores uma posição à direita. Esse processo é repetido até que todos os elementos estejam na posição correta. A ordenação por inserção é semelhante a como você ordenaria um baralho de cartas em suas mãos.
+
+Ordenação por seleção: Nesse algoritmo, em cada iteração, é identificado o menor elemento restante no vetor não ordenado e é trocado com o elemento na posição atual. Essa abordagem garante que, a cada iteração, o menor elemento seja colocado na posição correta. O processo de seleção do menor elemento é repetido até que todo o vetor esteja ordenado. A ordenação por seleção é semelhante a como você selecionaria a menor carta de um baralho e a colocaria em uma pilha separada.
