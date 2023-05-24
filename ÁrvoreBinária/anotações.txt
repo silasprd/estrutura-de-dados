@@ -1,0 +1,1 @@
+Árvore (em ordem e-r-d) tudo q for maior q a raiz para direita e menor para esquerda
