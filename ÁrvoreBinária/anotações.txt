@@ -1,1 +1,13 @@
 Árvore (em ordem e-r-d) tudo q for maior q a raiz para direita e menor para esquerda
+
+Remoção:
+utilizar 2 ponteiros p e f, um aponta para o pai e outro para o filho ao percorrer a lista
+Função remove só tira da raiz(root), realiza uma função de busca e remove como pai
+
+passo a passo remoção:
+1° busca o maior dos menores ou o menor dos maiores
+2° manter a variável pai e filho armazenada em um ponteiro
+3° pai->direita = f->esquerda
+4° f->direita = lixo->direita
+5° f->esquerda = lixo->esquerda
+6° free(lixo)

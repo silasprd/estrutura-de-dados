@@ -7,16 +7,12 @@ typedef struct node {
     struct node *right;
 } Node;
 
-Node *insert(Node *root, int value[], int n) {
+Node *insert(Node *root, int values[], int n) {
 
     if (root == NULL) {
         Node *new = malloc(sizeof(Node));
 
-        if (new == NULL) {
-            return root;
-        }
-
-        new->value = value[0];
+        new->value = values[0];
         new->left = NULL;
         new->right = NULL;
         root = new;
@@ -32,7 +28,7 @@ Node *insert(Node *root, int value[], int n) {
             return root;
         }
 
-        new->value = value[i];
+        new->value = values[i];
         new->left = NULL;
         new->right = NULL;
 
@@ -56,6 +52,30 @@ Node *insert(Node *root, int value[], int n) {
 
     return root;
     
+}
+
+Node* removeRoot(Node *root){
+    Node *p, *f;
+    if(root->left == NULL){
+        f = root->right;
+        free(root);
+        return f;
+    } else {
+        p = root; f = root->left;
+        while(f->right != NULL){
+            p = f;
+            f = f->right;
+
+            if(p != root){
+                p->right = f->left;
+                f->left = root->left;
+            }
+        }
+        f->right = root->right;
+    }
+    
+    free(root);
+    return f;
 }
 
 // void print(Node *root){
@@ -90,6 +110,7 @@ int main() {
     int n = sizeof(values) / sizeof(values[0]);
     
     root = insert(root, values, n);
+    root = removeRoot(root);
     printTreeStructure(root, 0);
     
     return 0;
