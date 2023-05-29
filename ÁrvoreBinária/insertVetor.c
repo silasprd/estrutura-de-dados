@@ -55,7 +55,15 @@ Node *insert(Node *root, int values[], int n) {
 }
 
 Node* removeRoot(Node *root){
+
     Node *p, *f;
+    
+    if(root->left == NULL && root->right == NULL){
+        f = root->right;
+        free(root);
+        return NULL;
+    }
+
     if(root->left == NULL){
         f = root->right;
         free(root);
